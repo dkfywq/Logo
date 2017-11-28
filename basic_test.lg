@@ -1,0 +1,72 @@
+to dash :n :len
+   repeat :n [ pd fd :len pu fd :len ]
+   bk :len
+   pd   
+end
+
+to octagon
+   repeat 8 [fd 200 squareDashTwirl 8 rt 45]
+end
+
+
+to squareDash :n :len
+   repeat 4 [ dash :n :len rt 90 ]
+end
+
+
+to squareDashTwirl :n
+   repeat 36 [squareDash :n :n rt 10]
+end
+
+
+setpc [0 255 255]
+repeat 36 [squareDash 8 8 rt 10]
+pu
+rt 90
+bk 400
+squareDashTwirl
+squareDashTwirl 7
+home
+cs
+squareDashTwirl 7
+cs
+squareDashTwirl 6
+cs
+squareDashTwirl 6
+cs
+octagon
+rt 90
+bk 100
+bk 100
+lt 90
+bk 100
+setpc [255 0 255]
+octagon
+setscreencolor [255 255 0]
+octagon
+
+
+;;;part 2
+
+repeat 5 [fd 100 repeat 5 [fd 20 rt 144] rt 144]
+
+
+;;;part 3
+
+to triangle :exp
+repeat 3 [run :exp lt 120]
+end
+
+to sierpinski :d :k
+triangle [ifelse equalp :k 1 [fd :d] [leg :d :k]]
+end
+
+to leg :d :k
+sierpinski div :d 2 9 :k  1
+penup fd :d pendown
+end
+
+
+sierpinski 400 6
+
+
